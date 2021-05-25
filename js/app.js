@@ -1,9 +1,12 @@
+const tbody = document.getElementById('input-data');
+
 const printData = () => {
     const id = document.getElementById('id');
     const name = document.getElementById('name');
     // console.log(typeof parseInt(id.value) + '         ' + typeof name.value);
 
-    postData({ "id" : parseInt(id.value), "name" : name.value});
+    postData({  "name" : name.value});
+   
 }
 
 
@@ -18,11 +21,17 @@ const subBtn = document.querySelector('form').addEventListener(
     
     
     
-    
+    // let arr;
     const postData = async dataPost => {
-        console.log(dataPost);
-        let data = await axios.post('http://localhost:8080/addPerson', dataPost).then(res => res.data);
+        // console.log(dataPost);
+        let data = await axios.post('http://localhost:8080/users/setUser', dataPost).then(res => res.data);
         console.log(data);
+        // arr = data;
+        let str = `<tr>
+        <td>${data[(data.length - 1)].id}</td>
+        <td>${data[(data.length - 1)].name}</td>
+        </tr>`;
+    tbody.insertAdjacentHTML('beforeend', str);
     }
     
     // postData();
@@ -49,4 +58,25 @@ const subBtn = document.querySelector('form').addEventListener(
 //     console.log(res.data)
 // })
 // ;
+
+
+
+const getData = async () => {
+    const row = await axios.get('http://localhost:8080/users/allUsers') ;
+    row.data.forEach(curr => {
+        let str = `<tr>
+        <td>${curr.id}</td>
+        <td>${curr.name}</td>
+    </tr>`;
+    tbody.insertAdjacentHTML('beforeend', str);
+    });
+
+    
+    
+}
+
+
+getData();
+
+
 
