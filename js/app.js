@@ -1,12 +1,40 @@
-// import axios from 'axios';
+const printData = () => {
+    const id = document.getElementById('id');
+    const name = document.getElementById('name');
+    // console.log(typeof parseInt(id.value) + '         ' + typeof name.value);
 
-const dataT = document.querySelector('.data');
+    postData({ "id" : parseInt(id.value), "name" : name.value});
+}
 
 
-console.log("testing shitss");
+const subBtn = document.querySelector('form').addEventListener(
+    'submit',
+    event => {
+        // console.log("hi");
+        event.preventDefault();
+        printData();
+    }
+    );
+    
+    
+    
+    
+    const postData = async dataPost => {
+        console.log(dataPost);
+        let data = await axios.post('http://localhost:8080/addPerson', dataPost).then(res => res.data);
+        console.log(data);
+    }
+    
+    // postData();
 
-// axios.get('https://jsonplaceholder.typicode.com/posts').then( res => {
-//     console.log(res);
+    console.log("testing shitss");
+    
+    // import axios from 'axios';
+    
+    // const dataT = document.querySelector('.data');
+    
+    // axios.get('https://jsonplaceholder.typicode.com/posts').then( res => {
+        //     console.log(res);
 //     res.data.forEach(e => {
 //         let el = document.createElement('div');
 //         el.innerHTML = JSON.stringify(e);
@@ -21,14 +49,4 @@ console.log("testing shitss");
 //     console.log(res.data)
 // })
 // ;
-
-const postData = async () => {
-    let data = await axios.post('http://localhost:8080/addPerson', {"id": 1 ,"name": "KV"}).then(res => res.data);
-    console.log(data);
-}
-
-postData();
-
-
-
 
